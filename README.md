@@ -14,3 +14,5 @@ The **GDPR Obfuscator** is a Python library designed to intercept and obfuscate 
    ```bash
    git clone https://github.com/ArifJSyed/gdpr-obfuscator.git
    cd gdpr-obfuscator
+
+**Note:** MVP version is CSV only
