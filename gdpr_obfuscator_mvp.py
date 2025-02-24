@@ -36,17 +36,17 @@ def obfuscate_csv_from_json(json_input_str):
     # Validate and parse S3 URL
     if not s3_url.startswith("s3://"):
         raise ValueError("Invalid S3 URL: Must start with 's3://'")
-    s3_parts = s3_url[5:].split('/', 1)
+    s3_parts = s3_url[5:].split("/", 1)
     if len(s3_parts) != 2:
         raise ValueError("Invalid S3 URL: Must be in the form s3://bucket/key")
     bucket, key = s3_parts
 
     # Initialize S3 client
-    s3 = boto3.client('s3')
+    s3 = boto3.client("s3")
 
     # Retrieve object from S3
     response = s3.get_object(Bucket=bucket, Key=key)
-    body = response['Body'].read().decode('utf-8')
+    body = response["Body"].read().decode("utf-8")
 
     input_stream = io.StringIO(body)
     output_stream = io.StringIO()
@@ -56,16 +56,18 @@ def obfuscate_csv_from_json(json_input_str):
     fieldnames = reader.fieldnames
     if fieldnames is None:
         raise ValueError("CSV file has no header row.")
-    writer = csv.DictWriter(output_stream, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL)
+    writer = csv.DictWriter(
+        output_stream, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL
+    )
     writer.writeheader()
 
     # Process each row, obfuscating specified fields
     for row in reader:
         for field in pii_fields:
             if field in row:
-                row[field] = '***'
+                row[field] = "***"
         writer.writerow(row)
 
     # Return the resulting CSV as bytes
-    result = output_stream.getvalue().encode('utf-8')
+    result = output_stream.getvalue().encode("utf-8")
     return result

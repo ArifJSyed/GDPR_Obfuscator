@@ -14,6 +14,7 @@ import json
 import pandas as pd
 from io import BytesIO
 
+
 def obfuscate_csv_from_json(json_input_str):
     """
     Obfuscates specified fields in a file stored on S3, supporting CSV, JSON, and Parquet.
@@ -36,19 +37,19 @@ def obfuscate_csv_from_json(json_input_str):
     # Validate and parse S3 URL
     if not s3_url.startswith("s3://"):
         raise ValueError("Invalid S3 URL: Must start with 's3://'")
-    s3_parts = s3_url[5:].split('/', 1)
+    s3_parts = s3_url[5:].split("/", 1)
     if len(s3_parts) != 2:
         raise ValueError("Invalid S3 URL: Must be in the form s3://bucket/key")
     bucket, key = s3_parts
 
     # Initialize S3 client and get object
-    s3 = boto3.client('s3')
+    s3 = boto3.client("s3")
     response = s3.get_object(Bucket=bucket, Key=key)
-    file_bytes = response['Body'].read()
+    file_bytes = response["Body"].read()
 
     # Determine file type based on extension
-    if key.endswith('.csv'):
-        body = file_bytes.decode('utf-8')
+    if key.endswith(".csv"):
+        body = file_bytes.decode("utf-8")
         input_stream = io.StringIO(body)
         output_stream = io.StringIO()
 
@@ -56,36 +57,40 @@ def obfuscate_csv_from_json(json_input_str):
         fieldnames = reader.fieldnames
         if fieldnames is None:
             raise ValueError("CSV file has no header row.")
-        writer = csv.DictWriter(output_stream, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL)
+        writer = csv.DictWriter(
+            output_stream, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL
+        )
         writer.writeheader()
 
         for row in reader:
             for field in pii_fields:
                 if field in row:
-                    row[field] = '***'
+                    row[field] = "***"
             writer.writerow(row)
 
-        return output_stream.getvalue().encode('utf-8')
+        return output_stream.getvalue().encode("utf-8")
 
-    elif key.endswith('.json'):
-        text = file_bytes.decode('utf-8')
+    elif key.endswith(".json"):
+        text = file_bytes.decode("utf-8")
         data_list = json.loads(text)
         # Assume data_list is a list of dictionaries
         for row in data_list:
             for field in pii_fields:
                 if field in row:
-                    row[field] = '***'
+                    row[field] = "***"
         new_text = json.dumps(data_list)
-        return new_text.encode('utf-8')
+        return new_text.encode("utf-8")
 
-    elif key.endswith('.parquet'):
+    elif key.endswith(".parquet"):
         df = pd.read_parquet(BytesIO(file_bytes))
         for field in pii_fields:
             if field in df.columns:
-                df[field] = '***'
+                df[field] = "***"
         out_buffer = BytesIO()
         df.to_parquet(out_buffer, index=False)
         return out_buffer.getvalue()
 
     else:
-        raise ValueError("Unsupported file type. Only CSV, JSON, and Parquet are supported.")
+        raise ValueError(
+            "Unsupported file type. Only CSV, JSON, and Parquet are supported."
+        )
