@@ -2,7 +2,7 @@ import json
 import csv
 import io
 import pytest
-from gdpr_obfuscator import obfuscate_csv_from_json
+from gdpr_obfuscator_mvp import obfuscate_csv_from_json
 
 # Helper classes to simulate S3 behavior for testing
 class FakeS3Body:
