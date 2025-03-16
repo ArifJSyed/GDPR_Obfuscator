@@ -37,6 +37,8 @@ The code can be run from within the venv. To activate the venv, run:
 **gdpr_obfuscator.py** contains the main code and
 **test_gdpr_obfuscator.py** contains the tests for use with pytest which can be run from the Makefile eg. **make unit-test**
 
+## Main function
+
 **def obfuscate_file(json_input_str: str) -> bytes:**
 Obfuscates specified fields in a file stored on S3, supporting CSV, JSON, and Parquet formats.
 
