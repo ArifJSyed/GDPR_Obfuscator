@@ -87,6 +87,10 @@ student_id,name,course,cohort,graduation_date,email_address
 
 The output format provides content compatible with the `boto3` [S3 Put Object](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3/client/put_object.html) function.
 
-Further documentation can be found here: https://arifjsyed.github.io/GDPR_Obfuscator/
+Further documentation can be found here (generated using pdoc and Github pages): https://arifjsyed.github.io/GDPR_Obfuscator/
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+![Amazon S3](https://img.shields.io/badge/Amazon%20S3-FF9900?style=for-the-badge&logo=amazons3&logoColor=white)
+![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
