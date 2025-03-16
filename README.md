@@ -20,6 +20,10 @@ The **GDPR Obfuscator** is a Python library designed to intercept and obfuscate 
    ```bash
    make create-environment
 
+3. **Use Makefile to build the environment requirements:**
+   ```bash
+   make requirements
+
 4. **Use Makefile to set up dev requirements:**
    ```bash
    make dev-setup
