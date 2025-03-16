@@ -47,7 +47,7 @@ bandit:
 
 ## Install safety
 safety:
-	$(call execute_in_env, $(PIP) install safety)
+	$(call execute_in_env, $(PIP) install safety==3.2.5)
 
 ## Install black
 black:
