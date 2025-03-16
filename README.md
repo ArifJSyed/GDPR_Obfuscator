@@ -60,3 +60,5 @@ The function downloads the file from S3, determines the file type based on its e
 - **Raises:** ValueError: If the S3 URL is invalid or if the file type is unsupported.
 
 Further documentation can be found here: https://arifjsyed.github.io/GDPR_Obfuscator/
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
