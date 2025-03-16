@@ -32,3 +32,5 @@ The function downloads the file from S3, determines the file type based on its e
 - Returns: bytes: A byte stream of the obfuscated file, ready for use with boto3 S3 PutObject.
 
 - Raises: ValueError: If the S3 URL is invalid or if the file type is unsupported.
+
+  Full documentation can be found here: https://arifjsyed.github.io/GDPR_Obfuscator/
