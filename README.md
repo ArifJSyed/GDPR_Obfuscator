@@ -33,6 +33,7 @@ The **GDPR Obfuscator** is a Python library designed to intercept and obfuscate 
 The code can be run from within the venv. To activate the venv, run:
    ```bash
    source venv/bin/activate
+   ```
 **gdpr_obfuscator.py** contains the main code and
 **test_gdpr_obfuscator.py** contains the tests for use with pytest which can be run from the Makefile eg. **make unit-test**
 
