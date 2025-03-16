@@ -59,6 +59,34 @@ The function downloads the file from S3, determines the file type based on its e
 
 - **Raises:** ValueError: If the S3 URL is invalid or if the file type is unsupported.
 
+## Example usage
+
+The input might be:
+```json
+{
+    "file_to_obfuscate": "s3://my_ingestion_bucket/new_data/file1.csv",
+    "pii_fields": ["name", "email_address"]
+}
+```
+
+The target CSV file would look like this:
+```csv
+student_id,name,course,cohort,graduation_date,email_address
+...
+1234,'John Smith','Software','2024-03-31','j.smith@email.com'
+...
+```
+
+The output will be a byte-stream representation of a file like this:
+```csv
+student_id,name,course,cohort,graduation_date,email_address
+...
+1234,'***','Software','2024-03-31','***'
+...
+```
+
+The output format provides content compatible with the `boto3` [S3 Put Object](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3/client/put_object.html) function.
+
 Further documentation can be found here: https://arifjsyed.github.io/GDPR_Obfuscator/
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
