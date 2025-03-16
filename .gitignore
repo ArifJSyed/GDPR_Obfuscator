@@ -1,3 +1,7 @@
+# old and backup files
+*.old
+*.bak
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

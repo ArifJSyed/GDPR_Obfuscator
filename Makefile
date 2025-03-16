@@ -69,7 +69,7 @@ security-test:
 
 ## Run the black code check
 run-black:
-	$(call execute_in_env, black)
+	$(call execute_in_env, black *.py)
 
 ## Run the unit tests
 unit-test:
@@ -77,7 +77,7 @@ unit-test:
 
 ## Run the coverage check
 check-coverage:
-	$(call execute_in_env, PYTHONPATH=${PYTHONPATH} pytest --cov=/)
+	$(call execute_in_env, PYTHONPATH=${PYTHONPATH} pytest --cov)
 
 ## Run all checks
 run-checks: security-test run-black unit-test check-coverage
